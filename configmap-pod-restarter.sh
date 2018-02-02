@@ -28,7 +28,7 @@ function main() {
             echo "last_resource_version for $config_map: ${last_resource_version[index]}"
             actual_resource_version=`get_configmap_resource_version $config_map`
             echo "actual_resource_version for $config_map: $actual_resource_version"
-            if [[ ${last_resource_version[index]} && 
+            if [[ ${last_resource_version[index]} && ${last_resource_version[index]} != null &&
                   $actual_resource_version &&
                   ${last_resource_version[index]} != $actual_resource_version ]]; then
                 curl -X "DELETE" -k -H "Authorization: Bearer $KUBE_TOKEN" $KUBERNETES_API_ENDPOINT/api/v1/namespaces/$KUBERNETES_NAMESPACE/pods/$RESTARTABLE_POD_NAME

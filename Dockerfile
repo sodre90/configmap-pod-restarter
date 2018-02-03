@@ -1,13 +1,9 @@
-FROM alpine:3.7
+FROM instrumentisto/glide
 
-RUN apk update
-RUN apk upgrade
-RUN apk add bash
-RUN apk add jq
-RUN apk add curl
+WORKDIR /go/src/app
+COPY . .
 
-COPY configmap-pod-restarter.sh /configmap-pod-restarter.sh
+RUN glide update --strip-vendor
+RUN mkdir -p build/Linux  && GOOS=linux go build -o build/Linux/configmap-pod-restarter
 
-ENTRYPOINT [ "/bin/bash" ]
-
-CMD [ "/configmap-pod-restarter.sh" ]
+ENTRYPOINT [ "/go/src/app/build/Linux/configmap-pod-restarter" ]

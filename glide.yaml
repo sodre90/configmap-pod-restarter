@@ -1,0 +1,4 @@
+package: github.com/sodre90/configmap-pod-restarter # e.g. github.com/foo/bar
+import:
+- package: k8s.io/client-go
+  version: v6.0.0
